@@ -1,14 +1,14 @@
-<mxfile host="app.diagrams.net" modified="2024-05-01T13:40:53.062Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="pUw60E1CUDUtiKHj77zM" version="24.2.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-05-01T13:54:00.686Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="8_tvZvXkrZxw4NW-4MFr" version="24.2.5" type="github">
   <diagram name="Page-1" id="74e2e168-ea6b-b213-b513-2b3c1d86103e">
-    <mxGraphModel dx="593" dy="1924" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="2731" dy="2384" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="77e6c97f196da883-1" value="Pool" style="swimlane;html=1;childLayout=stackLayout;startSize=20;rounded=0;shadow=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=8;align=center;" parent="1" vertex="1">
-          <mxGeometry x="290" y="-270" width="510" height="1600" as="geometry" />
+          <mxGeometry x="290" y="-270" width="510" height="1540" as="geometry" />
         </mxCell>
         <mxCell id="77e6c97f196da883-2" value="用户" style="swimlane;html=1;startSize=20;" parent="77e6c97f196da883-1" vertex="1">
-          <mxGeometry y="20" width="160" height="1580" as="geometry" />
+          <mxGeometry y="20" width="160" height="1520" as="geometry" />
         </mxCell>
         <mxCell id="ihScRz3SfvM41WwnzZbL-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="77e6c97f196da883-2" source="ihScRz3SfvM41WwnzZbL-24" target="ihScRz3SfvM41WwnzZbL-26">
           <mxGeometry relative="1" as="geometry" />
@@ -44,7 +44,7 @@
           <mxGeometry x="20" y="1210" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="77e6c97f196da883-3" value="平台" style="swimlane;html=1;startSize=20;" parent="77e6c97f196da883-1" vertex="1">
-          <mxGeometry x="160" y="20" width="180" height="1580" as="geometry" />
+          <mxGeometry x="160" y="20" width="180" height="1520" as="geometry" />
         </mxCell>
         <mxCell id="ihScRz3SfvM41WwnzZbL-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="77e6c97f196da883-3" source="ihScRz3SfvM41WwnzZbL-9" target="ihScRz3SfvM41WwnzZbL-11">
           <mxGeometry relative="1" as="geometry" />
@@ -88,7 +88,7 @@
           <mxGeometry x="30" y="1310" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ihScRz3SfvM41WwnzZbL-68" value="结束" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="77e6c97f196da883-3">
-          <mxGeometry x="30" y="1450" width="120" height="60" as="geometry" />
+          <mxGeometry x="30" y="1410" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ihScRz3SfvM41WwnzZbL-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="77e6c97f196da883-1" source="ihScRz3SfvM41WwnzZbL-5" target="ihScRz3SfvM41WwnzZbL-9">
           <mxGeometry relative="1" as="geometry" />
@@ -106,7 +106,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="77e6c97f196da883-4" value="商家" style="swimlane;html=1;startSize=20;" parent="77e6c97f196da883-1" vertex="1">
-          <mxGeometry x="340" y="20" width="170" height="1580" as="geometry" />
+          <mxGeometry x="340" y="20" width="170" height="1520" as="geometry" />
         </mxCell>
         <mxCell id="ihScRz3SfvM41WwnzZbL-5" value="商家注册" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="77e6c97f196da883-4">
           <mxGeometry x="20" y="50" width="120" height="60" as="geometry" />
