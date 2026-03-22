@@ -9,7 +9,7 @@ enableCodeCopy = true
 
 # Homepage
 [homepage]
-  layout = "hero"
+  layout = "profile"
   homepageImage = "img/hero.jpg"
   showRecent = true
   showRecentItems = 6
@@ -19,7 +19,7 @@ enableCodeCopy = true
   cardViewScreenWidth = false
 
 [header]
-  layout = "basic"
+  layout = "fixed"
 
 [footer]
   showCopyright = true

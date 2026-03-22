@@ -1,4 +1,5 @@
 [zh-cn]
+  title = "先这么着吧"
   languageName = "中文"
   languageCode = "zh-cn"
   contentDir = "content/zh-cn"
@@ -13,12 +14,13 @@
     name = "Bernard"
     headline = "先这么着吧"
     bio = "软件开发者 / 设计师 / 创作者"
-    # image = "img/author.jpg"
+    image = "img/author.png"
 
   [[zh-cn.params.author.links]]
     github = "https://github.com/Bernard203"
 
 [en]
+  title = "So It Goes"
   languageName = "English"
   languageCode = "en"
   contentDir = "content/en"
@@ -33,7 +35,7 @@
     name = "Bernard"
     headline = "So It Goes"
     bio = "Developer / Designer / Creator"
-    # image = "img/author.jpg"
+    image = "img/author.png"
 
   [[en.params.author.links]]
     github = "https://github.com/Bernard203"

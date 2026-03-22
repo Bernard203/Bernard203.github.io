@@ -25,3 +25,62 @@ kbd,
 samp {
   font-family: "JetBrains Mono", "Fira Code", "Noto Sans Mono", monospace;
 }
+
+/* Smooth transitions for interactive elements */
+a, button {
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Card hover lift effect refinement */
+.group:hover {
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+}
+.dark .group:hover {
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
+}
+
+/* Gradient text effect for section headers */
+.section-title {
+  background: linear-gradient(135deg, rgb(var(--color-primary-500)), rgb(var(--color-secondary-500)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle border glow on card hover */
+.group:hover {
+  border-color: rgba(var(--color-primary-400), 0.3);
+}
+.dark .group:hover {
+  border-color: rgba(var(--color-primary-500), 0.3);
+}
+
+/* Improve tag pill readability */
+[class*="rounded-full"] {
+  letter-spacing: 0.01em;
+}
+
+/* Smooth scrollbar for dark mode */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(15, 23, 42);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(51, 65, 85);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(71, 85, 105);
+  }
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
