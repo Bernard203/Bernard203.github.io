@@ -1,0 +1,39 @@
+[zh-cn]
+  languageName = "中文"
+  languageCode = "zh-cn"
+  contentDir = "content/zh-cn"
+  weight = 1
+
+  [zh-cn.params]
+    displayName = "ZH"
+    isoCode = "zh-cn"
+    dateFormat = "2006年1月2日"
+
+  [zh-cn.params.author]
+    name = "Bernard"
+    headline = "先这么着吧"
+    bio = "软件开发者 / 设计师 / 创作者"
+    # image = "img/author.jpg"
+
+  [[zh-cn.params.author.links]]
+    github = "https://github.com/Bernard203"
+
+[en]
+  languageName = "English"
+  languageCode = "en"
+  contentDir = "content/en"
+  weight = 2
+
+  [en.params]
+    displayName = "EN"
+    isoCode = "en"
+    dateFormat = "January 2, 2006"
+
+  [en.params.author]
+    name = "Bernard"
+    headline = "So It Goes"
+    bio = "Developer / Designer / Creator"
+    # image = "img/author.jpg"
+
+  [[en.params.author.links]]
+    github = "https://github.com/Bernard203"

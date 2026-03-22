@@ -1,0 +1,27 @@
+/* CJK typography optimization */
+
+/* Chinese font stack for body text */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* Comfortable line height for CJK content */
+article p,
+article li,
+article blockquote {
+  line-height: 1.8;
+}
+
+/* Paragraph spacing for readability */
+article p + p {
+  margin-top: 1.25em;
+}
+
+/* Monospace font stack for code */
+code,
+pre,
+kbd,
+samp {
+  font-family: "JetBrains Mono", "Fira Code", "Noto Sans Mono", monospace;
+}

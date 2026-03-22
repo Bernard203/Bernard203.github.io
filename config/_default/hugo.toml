@@ -1,0 +1,32 @@
+baseURL = "https://Bernard203.github.io/"
+defaultContentLanguage = "zh-cn"
+defaultContentLanguageInSubdir = true
+hasCJKLanguage = true
+enableRobotsTXT = true
+[pagination]
+  pagerSize = 12
+summaryLength = 30
+
+# Hugo Module - Blowfish theme
+[module]
+  [[module.imports]]
+    path = "github.com/nunocoracao/blowfish/v2"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"
+
+[sitemap]
+  changeFreq = "weekly"
+  priority = 0.5

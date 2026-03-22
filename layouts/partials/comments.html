@@ -1,0 +1,41 @@
+{{- if (.Params.showComments | default (.Site.Params.article.showComments | default false)) -}}
+<section class="mt-10 pt-6 border-t border-neutral-200 dark:border-neutral-700">
+  <!-- NOTE: You must fill in data-repo-id and data-category-id from https://giscus.app -->
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="Bernard203/Bernard203.github.io"
+    data-repo-id=""
+    data-category="Comments"
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="{{ cond (eq .Lang "zh-cn") "zh-CN" "en" }}"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+  </script>
+
+  <script>
+    // Sync Giscus theme with Blowfish dark/light toggle
+    const giscusThemeSync = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      const theme = isDark ? 'dark' : 'light';
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe) {
+        iframe.contentWindow.postMessage(
+          { giscus: { setConfig: { theme } } },
+          'https://giscus.app'
+        );
+      }
+    };
+
+    // Observe class changes on html element for theme switch
+    const observer = new MutationObserver(giscusThemeSync);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  </script>
+</section>
+{{- end -}}

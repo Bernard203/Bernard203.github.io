@@ -1,0 +1,51 @@
+name: "软件项目 / Software Project"
+description: "发布一个软件项目 / Publish a software project"
+labels: ["type:software"]
+body:
+  - type: dropdown
+    id: language
+    attributes:
+      label: "语言 / Language"
+      options:
+        - "lang:bilingual"
+        - "lang:zh"
+        - "lang:en"
+    validations:
+      required: true
+  - type: input
+    id: tags
+    attributes:
+      label: "技术栈 / Tech Stack"
+      description: "逗号分隔 / Comma-separated"
+      placeholder: "Python, React, Docker"
+    validations:
+      required: true
+  - type: input
+    id: github_url
+    attributes:
+      label: "GitHub URL"
+      placeholder: "https://github.com/..."
+  - type: input
+    id: demo_url
+    attributes:
+      label: "Demo URL"
+      placeholder: "https://..."
+  - type: textarea
+    id: content
+    attributes:
+      label: "内容 / Content"
+      description: "双语请用 ## zh-cn 和 ## en 分隔 / For bilingual, separate with ## zh-cn and ## en"
+      value: |
+        ## zh-cn
+        ### 标题
+        中文标题
+
+        中文内容...
+
+        ## en
+        ### Title
+        English Title
+
+        English content...
+    validations:
+      required: true

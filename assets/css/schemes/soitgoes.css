@@ -1,0 +1,37 @@
+/* So It Goes - Blue-gray primary with amber accent */
+:root {
+  --color-neutral: 255, 255, 255;
+  /* Slate - cool blue-gray neutral scale */
+  --color-neutral-50: 248, 250, 252;
+  --color-neutral-100: 241, 245, 249;
+  --color-neutral-200: 226, 232, 240;
+  --color-neutral-300: 203, 213, 225;
+  --color-neutral-400: 148, 163, 184;
+  --color-neutral-500: 100, 116, 139;
+  --color-neutral-600: 71, 85, 105;
+  --color-neutral-700: 51, 65, 85;
+  --color-neutral-800: 30, 41, 59;
+  --color-neutral-900: 15, 23, 42;
+  /* Blue-gray - sophisticated muted blue-gray primary */
+  --color-primary-50: 243, 247, 251;
+  --color-primary-100: 228, 237, 246;
+  --color-primary-200: 200, 218, 237;
+  --color-primary-300: 162, 192, 222;
+  --color-primary-400: 117, 160, 203;
+  --color-primary-500: 80, 131, 182;
+  --color-primary-600: 58, 107, 156;
+  --color-primary-700: 47, 87, 128;
+  --color-primary-800: 41, 73, 107;
+  --color-primary-900: 37, 62, 90;
+  /* Amber - warm amber accent for contrast */
+  --color-secondary-50: 255, 251, 235;
+  --color-secondary-100: 254, 243, 199;
+  --color-secondary-200: 253, 230, 138;
+  --color-secondary-300: 252, 211, 77;
+  --color-secondary-400: 251, 191, 36;
+  --color-secondary-500: 245, 158, 11;
+  --color-secondary-600: 217, 119, 6;
+  --color-secondary-700: 180, 83, 9;
+  --color-secondary-800: 146, 64, 14;
+  --color-secondary-900: 120, 53, 15;
+}

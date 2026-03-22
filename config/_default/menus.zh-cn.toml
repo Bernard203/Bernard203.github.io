@@ -1,0 +1,24 @@
+[[main]]
+  name = "软件项目"
+  pageRef = "software"
+  weight = 10
+
+[[main]]
+  name = "设计作品"
+  pageRef = "design"
+  weight = 20
+
+[[main]]
+  name = "文章写作"
+  pageRef = "articles"
+  weight = 30
+
+[[main]]
+  name = "多媒体"
+  pageRef = "multimedia"
+  weight = 40
+
+[[main]]
+  name = "关于"
+  pageRef = "about"
+  weight = 50

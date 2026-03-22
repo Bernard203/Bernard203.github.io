@@ -1,0 +1,64 @@
+# Blowfish theme parameters
+
+colorScheme = "soitgoes"
+defaultAppearance = "dark"
+autoSwitchAppearance = true
+
+enableSearch = true
+enableCodeCopy = true
+
+# Homepage
+[homepage]
+  layout = "hero"
+  homepageImage = "img/hero.jpg"
+  showRecent = true
+  showRecentItems = 6
+  showMoreLink = true
+  showMoreLinkDest = "/articles"
+  cardView = true
+  cardViewScreenWidth = false
+
+[header]
+  layout = "basic"
+
+[footer]
+  showCopyright = true
+  showThemeAttribution = false
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+[article]
+  showDate = true
+  showDateOnlyInArticle = false
+  showDateUpdated = false
+  showAuthor = false
+  showBreadcrumbs = true
+  showDraftLabel = true
+  showEdit = false
+  showHeadingAnchors = true
+  showPagination = true
+  showReadingTime = true
+  showTableOfContents = true
+  showTaxonomies = true
+  showWordCount = false
+  showComments = false
+  sharingLinks = ["twitter", "reddit", "linkedin", "telegram", "pinterest"]
+
+[list]
+  showBreadcrumbs = true
+  showTableOfContents = false
+  showTaxonomies = true
+  showSummary = true
+  groupByYear = false
+  cardView = true
+  cardViewScreenWidth = false
+
+[taxonomy]
+  showTermCount = true
+  showBreadcrumbs = true
+
+[fathomAnalytics]
+  # site = ""
+
+[verification]
+  # google = ""

@@ -1,0 +1,18 @@
+# Hugo output
+public/
+resources/_gen/
+
+# Hugo cache
+.hugo_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Node (if Tailwind/npm added later)
+node_modules/
+

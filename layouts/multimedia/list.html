@@ -1,0 +1,29 @@
+{{ define "main" }}
+<header class="mb-8">
+  <h1 class="text-3xl font-bold">{{ .Title }}</h1>
+  {{ with .Description }}<p class="mt-2 text-neutral-500 dark:text-neutral-400">{{ . }}</p>{{ end }}
+</header>
+<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {{ range .Pages }}
+  <article class="rounded-lg border border-neutral-200 dark:border-neutral-700 overflow-hidden hover:shadow-lg transition-shadow bg-white dark:bg-neutral-800">
+    <div class="relative">
+      {{ with .Params.thumb }}
+      <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-48 object-cover" />
+      {{ end }}
+      {{ with .Params.duration }}
+      <span class="absolute bottom-2 right-2 px-2 py-0.5 text-xs font-mono bg-black/75 text-white rounded">{{ . }}</span>
+      {{ end }}
+      {{ with .Params.mediaType }}
+      <span class="absolute top-2 left-2 px-2 py-0.5 text-xs font-semibold bg-secondary-500 text-white rounded">{{ . }}</span>
+      {{ end }}
+    </div>
+    <div class="p-5">
+      <h2 class="text-lg font-semibold mb-1">
+        <a href="{{ .RelPermalink }}" class="hover:text-primary-500">{{ .Title }}</a>
+      </h2>
+      <p class="text-sm text-neutral-600 dark:text-neutral-300">{{ .Summary }}</p>
+    </div>
+  </article>
+  {{ end }}
+</div>
+{{ end }}
