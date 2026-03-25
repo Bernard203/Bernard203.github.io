@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Splash Animation Test</title>
+<style>
+  /* ===== Page styles (mock content) ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-family: system-ui, sans-serif; }
+  html.dark { background: #1c1917; color: #e8e6e3; }
+  html:not(.dark) { background: #faf9f6; color: #2c2c2c; }
+  body { min-height: 200vh; padding: 2rem; }
+  .controls {
+    position: fixed; bottom: 1rem; right: 1rem; z-index: 20000000;
+    display: flex; gap: 0.5rem;
+  }
+  .controls button {
+    padding: 0.5rem 1rem; border: none; border-radius: 0.5rem;
+    cursor: pointer; font-size: 0.875rem; font-weight: 600;
+  }
+  .btn-replay { background: #c15f3c; color: white; }
+  .btn-toggle { background: #da7045; color: white; }
+  .mock-content {
+    max-width: 48rem; margin: 0 auto;
+  }
+  .mock-content h1 { font-size: 2rem; margin-bottom: 1rem; }
+  .mock-content p { margin-bottom: 1rem; line-height: 1.7; opacity: 0.8; }
+  .mock-sidebar {
+    position: fixed; top: 0; left: 0; width: 16rem; height: 100vh;
+    padding: 2rem 1rem; display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  html.dark .mock-sidebar { background: #292521; }
+  html:not(.dark) .mock-sidebar { background: #f5f3ee; }
+  .mock-sidebar a {
+    display: block; padding: 0.5rem 1rem; border-radius: 0.375rem;
+    text-decoration: none; font-size: 0.875rem;
+  }
+  html.dark .mock-sidebar a { color: #a8a295; }
+  html:not(.dark) .mock-sidebar a { color: #57534c; }
+  .mock-content { margin-left: 18rem; }
+</style>
+
+<!-- ===== Splash CSS (identical to extend-head.html) ===== -->
+<style id="splash-styles">
+  @keyframes splash-ring-draw {
+    from { stroke-dashoffset: 565.49; }
+    to   { stroke-dashoffset: 0; }
+  }
+  @keyframes splash-wave-pulse {
+    0%, 100% { transform: scaleY(0.3); }
+    50%      { transform: scaleY(1.0); }
+  }
+  @keyframes splash-letter-in {
+    from { opacity: 0; transform: scale(0.5); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes splash-loading-in {
+    from { opacity: 0; }
+    to   { opacity: 0.7; }
+  }
+
+  #splash-overlay {
+    position: fixed !important;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 10000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(28, 25, 23);
+    transition: opacity 0.5s ease;
+    overflow: hidden;
+  }
+  html:not(.dark) #splash-overlay {
+    background: rgb(250, 249, 246);
+  }
+  #splash-overlay.splash-done {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .splash-ring-circle {
+    fill: none;
+    stroke: rgb(193, 95, 60);
+    stroke-width: 3;
+    stroke-dasharray: 565.49;
+    stroke-dashoffset: 565.49;
+    stroke-linecap: round;
+    animation: splash-ring-draw 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  html:not(.dark) .splash-ring-circle {
+    stroke: rgb(160, 75, 45);
+  }
+
+  .splash-ring-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-width: 3;
+  }
+  html:not(.dark) .splash-ring-track {
+    stroke: rgba(0, 0, 0, 0.06);
+  }
+
+  .splash-wave-box {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+  }
+
+  .splash-wave-line {
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px;
+    height: 18px;
+    background: rgb(193, 95, 60);
+    border-radius: 1px;
+    transform-origin: center bottom;
+    animation: splash-wave-pulse 0.8s ease-in-out infinite;
+  }
+  html:not(.dark) .splash-wave-line {
+    background: rgb(160, 75, 45);
+  }
+
+  .splash-letter {
+    position: absolute;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgb(251, 191, 36);
+    opacity: 0;
+    animation: splash-letter-in 0.4s ease forwards;
+    animation-delay: 0.3s;
+    user-select: none;
+  }
+
+  .splash-progress {
+    position: absolute;
+    bottom: 28%;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.05em;
+  }
+  html:not(.dark) .splash-progress {
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  .splash-loading {
+    position: absolute;
+    bottom: 24%;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 0;
+    animation: splash-loading-in 0.4s ease forwards;
+    animation-delay: 0.5s;
+    user-select: none;
+  }
+  html:not(.dark) .splash-loading {
+    color: rgba(0, 0, 0, 0.5);
+  }
+</style>
+
+<!-- ===== Splash JS (identical logic to extend-head.html) ===== -->
+<script>
+function playSplash() {
+  var old = document.getElementById('splash-overlay');
+  if (old) old.remove();
+
+  var html = document.documentElement;
+  html.style.overflow = 'hidden';
+
+  var overlay = document.createElement('div');
+  overlay.id = 'splash-overlay';
+  overlay.innerHTML =
+    '<svg width="200" height="200" viewBox="0 0 200 200" style="position:relative;z-index:1">' +
+      '<circle class="splash-ring-track" cx="100" cy="100" r="90"/>' +
+      '<circle class="splash-ring-circle" cx="100" cy="100" r="90"/>' +
+    '</svg>' +
+    '<div class="splash-wave-box"></div>' +
+    '<div class="splash-letter">B</div>' +
+    '<div class="splash-progress">0%</div>' +
+    '<div class="splash-loading">LOADING</div>';
+
+  html.appendChild(overlay);
+
+  var waveBox = overlay.querySelector('.splash-wave-box');
+  for (var i = 0; i < 24; i++) {
+    var line = document.createElement('div');
+    line.className = 'splash-wave-line';
+    var angle = (360 / 24) * i;
+    var rad = angle * Math.PI / 180;
+    var dist = 144;
+    var x = Math.cos(rad - Math.PI / 2) * dist;
+    var y = Math.sin(rad - Math.PI / 2) * dist;
+    line.style.cssText =
+      'transform: translate(' + (x - 1) + 'px,' + (y - 9) + 'px) rotate(' + angle + 'deg);' +
+      'animation-delay: ' + (i * 0.05) + 's;';
+    waveBox.appendChild(line);
+  }
+
+  var progress = overlay.querySelector('.splash-progress');
+  var count = 0;
+  var interval = setInterval(function() {
+    count++;
+    if (count > 100) count = 100;
+    progress.textContent = count + '%';
+    if (count >= 100) {
+      clearInterval(interval);
+      setTimeout(function() {
+        overlay.classList.add('splash-done');
+      }, 300);
+    }
+  }, 20);
+
+  overlay.addEventListener('transitionend', function(e) {
+    if (e.propertyName !== 'opacity') return;
+    overlay.remove();
+    html.style.overflow = '';
+    sessionStorage.setItem('_splash', '1');
+  });
+}
+
+(function() {
+  if (!sessionStorage.getItem('_splash')) {
+    playSplash();
+  }
+})();
+</script>
+</head>
+<body>
+
+<div class="mock-sidebar">
+  <a href="#">Home</a>
+  <a href="#">Posts</a>
+  <a href="#">Projects</a>
+  <a href="#">Tags</a>
+  <a href="#">About</a>
+</div>
+
+<div class="mock-content">
+  <h1>Splash Animation Test Page</h1>
+  <p>This page simulates the site layout to verify the splash overlay covers everything, including the sidebar.</p>
+  <p>The splash animation plays once per session (sessionStorage). Use the "Reset & Replay" button below to clear the flag and replay the animation.</p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <p style="margin-top:2rem;opacity:0.5;">Scroll down to verify overlay covers the full viewport even with long content.</p>
+  <p>More content below...</p>
+  <p>Even more content...</p>
+  <p>Still going...</p>
+  <p>Almost at the bottom...</p>
+  <p>End of mock content.</p>
+</div>
+
+<div class="controls">
+  <button class="btn-replay" onclick="sessionStorage.removeItem('_splash'); playSplash();">Reset &amp; Replay</button>
+  <button class="btn-toggle" onclick="document.documentElement.classList.toggle('dark');">Toggle Dark/Light</button>
+</div>
+
+</body>
+</html>

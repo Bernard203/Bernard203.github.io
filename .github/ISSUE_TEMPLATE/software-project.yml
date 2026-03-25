@@ -1,6 +1,6 @@
 name: "软件项目 / Software Project"
 description: "发布一个软件项目 / Publish a software project"
-labels: ["type:software"]
+labels: ["type:project"]
 body:
   - type: dropdown
     id: language

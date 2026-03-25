@@ -1,24 +1,14 @@
 [[main]]
-  name = "Software"
-  pageRef = "software"
+  name = "Project"
+  pageRef = "project"
   weight = 10
-
-[[main]]
-  name = "Design"
-  pageRef = "design"
-  weight = 20
 
 [[main]]
   name = "Articles"
   pageRef = "articles"
-  weight = 30
-
-[[main]]
-  name = "Multimedia"
-  pageRef = "multimedia"
-  weight = 40
+  weight = 20
 
 [[main]]
   name = "About"
   pageRef = "about"
-  weight = 50
+  weight = 30

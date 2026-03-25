@@ -1,6 +1,6 @@
 ---
-title: "设计作品"
-description: "我的设计作品集"
+title: "Project"
+description: "My projects"
 cascade:
   showDate: true
   showReadingTime: false

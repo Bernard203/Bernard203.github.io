@@ -1,0 +1,167 @@
+<!doctype html>
+<html
+  lang="{{ with site.Params.isoCode | default (site.LanguageCode | default `en`) }}{{- . -}}{{ end }}"
+  dir="{{ cond (site.Params.rtl | default false) `rtl` `ltr` }}"
+  class="scroll-smooth"
+  data-default-appearance="{{ site.Params.defaultAppearance | default `light` }}"
+  data-auto-appearance="{{ site.Params.autoSwitchAppearance | default `true` }}">
+  {{- partial "head.html" . -}}
+  {{- partialCached "init.html" . -}}
+
+  <body class="flex h-screen text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral {{ if site.Params.enableStyledScrollbar | default true }}bf-scrollbar{{ end }}">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+      <!-- Site title -->
+      <div class="sidebar-header">
+        <a href="{{ "" | relLangURL }}" class="sidebar-site-title">
+          {{ .Site.Title | markdownify }}
+        </a>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="sidebar-nav">
+        {{ range .Site.Menus.main }}
+        <a href="{{ .URL }}" class="sidebar-nav-item{{ if $.IsMenuCurrent "main" . }} sidebar-nav-active{{ end }}">
+          {{ .Name }}
+        </a>
+        {{ end }}
+      </nav>
+
+      <!-- Bottom controls -->
+      <div class="sidebar-footer">
+        <!-- Language switcher -->
+        {{ if .IsTranslated }}
+        <div class="sidebar-lang">
+          {{ range .Translations }}
+          <a href="{{ .RelPermalink }}" class="sidebar-lang-link" title="{{ .Language.LanguageName }}">
+            {{ .Language.Params.displayName | default .Language.LanguageName }}
+          </a>
+          {{ end }}
+          <span class="sidebar-lang-current">{{ .Language.Params.displayName | default .Language.LanguageName }}</span>
+        </div>
+        {{ else if site.IsMultiLingual }}
+        <div class="sidebar-lang">
+          {{ range site.Languages }}
+            {{ if eq .Lang $.Site.Language.Lang }}
+              <span class="sidebar-lang-current">{{ .Params.displayName | default .LanguageName }}</span>
+            {{ else }}
+              <a href="{{ (site.GetPage "/").RelPermalink | replaceRE (printf "^/%s/" $.Site.Language.Lang) (printf "/%s/" .Lang) }}" class="sidebar-lang-link">
+                {{ .Params.displayName | default .LanguageName }}
+              </a>
+            {{ end }}
+          {{ end }}
+        </div>
+        {{ end }}
+
+        <!-- Appearance switcher -->
+        {{ if site.Params.footer.showAppearanceSwitcher | default false }}
+        <button
+          id="appearance-switcher"
+          class="sidebar-icon-btn"
+          type="button"
+          title="Toggle appearance"
+          aria-label="Toggle appearance">
+          <div class="flex items-center justify-center w-5 h-5">
+            <div id="appearance-switcher-sun-icon" class="hidden dark:block">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.06 1.06l1.06 1.06z"/>
+              </svg>
+            </div>
+            <div id="appearance-switcher-moon-icon" class="block dark:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                <path fill-rule="evenodd" d="M7.455 2.004a.75.75 0 01.26.77 7 7 0 009.958 7.967.75.75 0 011.067.853A8.5 8.5 0 116.647 1.921a.75.75 0 01.808.083z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        </button>
+        {{ end }}
+
+        <!-- Search button -->
+        {{ if site.Params.enableSearch | default false }}
+        <button
+          id="search-button"
+          class="sidebar-icon-btn"
+          type="button"
+          title="{{ i18n "search.title" }}"
+          aria-label="{{ i18n "search.title" }}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        {{ end }}
+      </div>
+    </aside>
+
+    <!-- Sidebar backdrop (mobile) -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- Sidebar toggle button (mobile) -->
+    <button id="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Toggle menu">
+      <svg class="hamburger-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      <svg class="close-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Main content area -->
+    <div class="flex-1 flex flex-col min-h-screen overflow-y-auto leading-7">
+      <div class="m-auto w-full max-w-5xl px-6 sm:px-14 md:px-24">
+        <div class="relative flex flex-col grow">
+          <main id="main-content" class="grow">
+            {{ block "main" . }}{{ end }}
+            {{ if site.Params.footer.showScrollToTop | default true }}
+              {{- partial "scroll-to-top.html" . -}}
+            {{ end }}
+          </main>
+          {{- partial "footer.html" . -}}
+          {{ if site.Params.enableSearch | default false }}
+            {{- partial "search.html" . -}}
+          {{ end }}
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      // Sidebar toggle
+      var sidebar = document.getElementById('sidebar');
+      var backdrop = document.getElementById('sidebar-backdrop');
+      var toggleBtn = document.getElementById('sidebar-toggle');
+      var hamburger = toggleBtn ? toggleBtn.querySelector('.hamburger-icon') : null;
+      var closeIcon = toggleBtn ? toggleBtn.querySelector('.close-icon') : null;
+
+      function openSidebar() {
+        sidebar.classList.add('open');
+        backdrop.classList.add('open');
+        if (hamburger) hamburger.classList.add('hidden');
+        if (closeIcon) closeIcon.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeSidebar() {
+        sidebar.classList.remove('open');
+        backdrop.classList.remove('open');
+        if (hamburger) hamburger.classList.remove('hidden');
+        if (closeIcon) closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      if (toggleBtn) toggleBtn.addEventListener('click', function() {
+        sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+      });
+      if (backdrop) backdrop.addEventListener('click', closeSidebar);
+
+      // Close sidebar on ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeSidebar();
+      });
+
+    })();
+    </script>
+  </body>
+</html>

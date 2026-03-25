@@ -5,7 +5,7 @@
 </header>
 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
   {{ range .Pages }}
-  <article class="group rounded-2xl border border-neutral-200 dark:border-neutral-700 overflow-hidden bg-white dark:bg-neutral-800 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+  <article class="group rounded-2xl border border-neutral-200 dark:border-neutral-700 overflow-hidden bg-neutral-50 dark:bg-neutral-800 transition-all duration-300">
     {{- with .Params.thumb }}
     <div class="overflow-hidden">
       <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105" />

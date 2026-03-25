@@ -1,0 +1,200 @@
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Splash Screen: CSS + JS injected into <html> before body paints -->
+<style id="splash-styles">
+  @keyframes splash-ring-draw {
+    from { stroke-dashoffset: 565.49; }
+    to   { stroke-dashoffset: 0; }
+  }
+  @keyframes splash-wave-pulse {
+    0%, 100% { transform: scaleY(0.3); }
+    50%      { transform: scaleY(1.0); }
+  }
+  @keyframes splash-letter-in {
+    from { opacity: 0; transform: scale(0.5); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes splash-loading-in {
+    from { opacity: 0; }
+    to   { opacity: 0.7; }
+  }
+
+  #splash-overlay {
+    position: fixed !important;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 10000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(28, 25, 23);
+    transition: opacity 0.5s ease;
+    overflow: hidden;
+  }
+  html:not(.dark) #splash-overlay {
+    background: rgb(250, 249, 246);
+  }
+  #splash-overlay.splash-done {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* SVG ring */
+  .splash-ring-circle {
+    fill: none;
+    stroke: rgb(193, 95, 60);
+    stroke-width: 3;
+    stroke-dasharray: 565.49;
+    stroke-dashoffset: 565.49;
+    stroke-linecap: round;
+    animation: splash-ring-draw 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  html:not(.dark) .splash-ring-circle {
+    stroke: rgb(160, 75, 45);
+  }
+
+  /* Ring track (subtle background) */
+  .splash-ring-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-width: 3;
+  }
+  html:not(.dark) .splash-ring-track {
+    stroke: rgba(0, 0, 0, 0.06);
+  }
+
+  /* Wave container */
+  .splash-wave-box {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+  }
+
+  /* Individual wave line */
+  .splash-wave-line {
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px;
+    height: 18px;
+    background: rgb(193, 95, 60);
+    border-radius: 1px;
+    transform-origin: center bottom;
+    animation: splash-wave-pulse 0.8s ease-in-out infinite;
+  }
+  html:not(.dark) .splash-wave-line {
+    background: rgb(160, 75, 45);
+  }
+
+  /* Center letter */
+  .splash-letter {
+    position: absolute;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgb(251, 191, 36);
+    opacity: 0;
+    animation: splash-letter-in 0.4s ease forwards;
+    animation-delay: 0.3s;
+    user-select: none;
+  }
+
+  /* Progress counter */
+  .splash-progress {
+    position: absolute;
+    bottom: 28%;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.05em;
+  }
+  html:not(.dark) .splash-progress {
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  /* LOADING text */
+  .splash-loading {
+    position: absolute;
+    bottom: 24%;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 0;
+    animation: splash-loading-in 0.4s ease forwards;
+    animation-delay: 0.5s;
+    user-select: none;
+  }
+  html:not(.dark) .splash-loading {
+    color: rgba(0, 0, 0, 0.5);
+  }
+</style>
+
+<script>
+(function() {
+  // Only play once per session
+  if (sessionStorage.getItem('_splash')) return;
+
+  var html = document.documentElement;
+  html.style.overflow = 'hidden';
+
+  // Create overlay
+  var overlay = document.createElement('div');
+  overlay.id = 'splash-overlay';
+  overlay.innerHTML =
+    '<svg width="200" height="200" viewBox="0 0 200 200" style="position:relative;z-index:1">' +
+      '<circle class="splash-ring-track" cx="100" cy="100" r="90"/>' +
+      '<circle class="splash-ring-circle" cx="100" cy="100" r="90"/>' +
+    '</svg>' +
+    '<div class="splash-wave-box"></div>' +
+    '<div class="splash-letter">B</div>' +
+    '<div class="splash-progress">0%</div>' +
+    '<div class="splash-loading">LOADING</div>';
+
+  html.appendChild(overlay);
+
+  // Generate 24 wave lines
+  var waveBox = overlay.querySelector('.splash-wave-box');
+  for (var i = 0; i < 24; i++) {
+    var line = document.createElement('div');
+    line.className = 'splash-wave-line';
+    var angle = (360 / 24) * i;
+    var rad = angle * Math.PI / 180;
+    var dist = 144; // 9rem = 144px
+    var x = Math.cos(rad - Math.PI / 2) * dist;
+    var y = Math.sin(rad - Math.PI / 2) * dist;
+    line.style.cssText =
+      'transform: translate(' + (x - 1) + 'px,' + (y - 9) + 'px) rotate(' + angle + 'deg);' +
+      'animation-delay: ' + (i * 0.05) + 's;';
+    waveBox.appendChild(line);
+  }
+
+  // Progress counter
+  var progress = overlay.querySelector('.splash-progress');
+  var count = 0;
+  var interval = setInterval(function() {
+    count++;
+    if (count > 100) count = 100;
+    progress.textContent = count + '%';
+    if (count >= 100) {
+      clearInterval(interval);
+      // Hold 300ms then fade out
+      setTimeout(function() {
+        overlay.classList.add('splash-done');
+      }, 300);
+    }
+  }, 20);
+
+  // After fade-out transition, clean up
+  overlay.addEventListener('transitionend', function(e) {
+    if (e.propertyName !== 'opacity') return;
+    overlay.remove();
+    var styles = document.getElementById('splash-styles');
+    if (styles) styles.remove();
+    html.style.overflow = '';
+    sessionStorage.setItem('_splash', '1');
+  });
+})();
+</script>

@@ -1,29 +1,33 @@
-/* So It Goes - Blue-gray primary with amber accent */
+/* So It Goes - Claude warm-tone palette */
 :root {
-  --color-neutral: 255, 255, 255;
-  /* Slate - cool blue-gray neutral scale */
-  --color-neutral-50: 248, 250, 252;
-  --color-neutral-100: 241, 245, 249;
-  --color-neutral-200: 226, 232, 240;
-  --color-neutral-300: 203, 213, 225;
-  --color-neutral-400: 148, 163, 184;
-  --color-neutral-500: 100, 116, 139;
-  --color-neutral-600: 71, 85, 105;
-  --color-neutral-700: 51, 65, 85;
-  --color-neutral-800: 30, 41, 59;
-  --color-neutral-900: 15, 23, 42;
-  /* Blue-gray - sophisticated muted blue-gray primary */
-  --color-primary-50: 243, 247, 251;
-  --color-primary-100: 228, 237, 246;
-  --color-primary-200: 200, 218, 237;
-  --color-primary-300: 162, 192, 222;
-  --color-primary-400: 117, 160, 203;
-  --color-primary-500: 80, 131, 182;
-  --color-primary-600: 58, 107, 156;
-  --color-primary-700: 47, 87, 128;
-  --color-primary-800: 41, 73, 107;
-  --color-primary-900: 37, 62, 90;
-  /* Amber - warm amber accent for contrast */
+  /* Base white: warm white (affects body bg-neutral) */
+  --color-neutral: 244, 243, 238;
+
+  /* Warm stone neutral scale */
+  --color-neutral-50:  250, 249, 246;
+  --color-neutral-100: 245, 243, 238;
+  --color-neutral-200: 231, 227, 219;
+  --color-neutral-300: 209, 204, 193;
+  --color-neutral-400: 168, 162, 149;
+  --color-neutral-500: 122, 117, 106;
+  --color-neutral-600: 87, 83, 76;
+  --color-neutral-700: 68, 64, 58;
+  --color-neutral-800: 41, 37, 33;
+  --color-neutral-900: 28, 25, 23;
+
+  /* Rust-orange primary (Claude #C15F3C) */
+  --color-primary-50:  255, 247, 241;
+  --color-primary-100: 254, 235, 221;
+  --color-primary-200: 252, 211, 187;
+  --color-primary-300: 249, 179, 141;
+  --color-primary-400: 243, 141, 93;
+  --color-primary-500: 218, 112, 69;
+  --color-primary-600: 193, 95, 60;
+  --color-primary-700: 160, 75, 45;
+  --color-primary-800: 130, 63, 40;
+  --color-primary-900: 107, 53, 35;
+
+  /* Amber accent (unchanged) */
   --color-secondary-50: 255, 251, 235;
   --color-secondary-100: 254, 243, 199;
   --color-secondary-200: 253, 230, 138;

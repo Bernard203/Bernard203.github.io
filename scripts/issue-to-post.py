@@ -24,10 +24,8 @@ def parse_labels(labels_json):
     language = None
 
     type_map = {
-        "type:software": "software",
-        "type:design": "design",
+        "type:project": "project",
         "type:article": "articles",
-        "type:multimedia": "multimedia",
     }
 
     for label in labels:
