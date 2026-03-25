@@ -31,14 +31,6 @@ a, button {
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-/* Card hover lift effect refinement */
-.group:hover {
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
-}
-.dark .group:hover {
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
-}
-
 /* Gradient text effect for section headers */
 .section-title {
   background: linear-gradient(135deg, rgb(var(--color-primary-500)), rgb(var(--color-secondary-500)));
@@ -47,17 +39,69 @@ a, button {
   background-clip: text;
 }
 
-/* Subtle border glow on card hover */
-.group:hover {
-  border-color: rgba(var(--color-primary-400), 0.3);
-}
-.dark .group:hover {
-  border-color: rgba(var(--color-primary-500), 0.3);
-}
-
 /* Improve tag pill readability */
 [class*="rounded-full"] {
   letter-spacing: 0.01em;
+}
+
+/* ---- Global bg-white warm override ---- */
+.bg-white {
+  background-color: rgba(var(--color-neutral-50), 1) !important;
+}
+
+/* ---- Project card Claude-style hover effects ---- */
+article.group {
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1),
+              border-color 0.3s ease;
+}
+article.group:hover {
+  transform: scale(1.02);
+  box-shadow:
+    0 4px 6px -1px rgba(28, 25, 23, 0.06),
+    0 12px 24px -4px rgba(28, 25, 23, 0.1);
+  border-color: rgba(var(--color-primary-400), 0.35);
+}
+.dark article.group:hover {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 12px 24px -4px rgba(0, 0, 0, 0.35);
+  border-color: rgba(var(--color-primary-500), 0.3);
+}
+
+/* ---- Homepage Blowfish card hover effects ---- */
+.article-link--card {
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1),
+              border-color 0.3s ease;
+}
+.article-link--card:hover {
+  transform: scale(1.02);
+  box-shadow:
+    0 4px 6px -1px rgba(28, 25, 23, 0.06),
+    0 12px 24px -4px rgba(28, 25, 23, 0.1);
+  border-color: rgba(var(--color-primary-400), 0.35);
+}
+.dark .article-link--card:hover {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.2),
+    0 12px 24px -4px rgba(0, 0, 0, 0.35);
+  border-color: rgba(var(--color-primary-500), 0.3);
+}
+
+/* ---- 卡片标题：去掉 hover 下划线，改用颜色过渡 ---- */
+article.group a:hover,
+.article-link--card a:hover,
+.article-link--simple a:hover,
+.article-link--related a:hover {
+  text-decoration: none !important;
+  color: rgb(var(--color-primary-500));
+}
+.dark article.group a:hover,
+.dark .article-link--card a:hover,
+.dark .article-link--simple a:hover,
+.dark .article-link--related a:hover {
+  color: rgb(var(--color-primary-400));
 }
 
 /* Smooth scrollbar for dark mode */
@@ -66,14 +110,14 @@ a, button {
     width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: rgb(15, 23, 42);
+    background: rgb(28, 25, 23);
   }
   ::-webkit-scrollbar-thumb {
-    background: rgb(51, 65, 85);
+    background: rgb(68, 64, 58);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgb(71, 85, 105);
+    background: rgb(87, 83, 76);
   }
 }
 
@@ -83,4 +127,220 @@ a, button {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ==================== Sidebar ==================== */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 16rem;
+  background: rgb(var(--color-neutral-100, 245 243 238));
+  border-right: 1px solid rgb(var(--color-neutral-200, 231 227 219));
+  padding: 2rem 1.25rem;
+  z-index: 200;
+  transition: transform 0.3s ease;
+}
+.dark .sidebar {
+  background: rgb(var(--color-neutral-900, 28 25 23));
+  border-right-color: rgb(var(--color-neutral-700, 68 64 58));
+}
+
+.sidebar-header {
+  margin-bottom: 2rem;
+}
+.sidebar-site-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgb(var(--color-neutral-900, 28 25 23));
+  text-decoration: none;
+  line-height: 1.3;
+}
+.dark .sidebar-site-title {
+  color: rgb(var(--color-neutral-100, 245 243 238));
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+.sidebar-nav-item {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgb(var(--color-neutral-600, 87 83 76));
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.dark .sidebar-nav-item {
+  color: rgb(var(--color-neutral-400, 168 162 149));
+}
+.sidebar-nav-item:hover {
+  background: rgb(var(--color-neutral-200, 231 227 219));
+  color: rgb(var(--color-neutral-900, 28 25 23));
+}
+.dark .sidebar-nav-item:hover {
+  background: rgb(var(--color-neutral-800, 41 37 33));
+  color: rgb(var(--color-neutral-100, 245 243 238));
+}
+.sidebar-nav-active {
+  background: rgb(var(--color-primary-100, 254 235 221));
+  color: rgb(var(--color-primary-700, 160 75 45));
+}
+.dark .sidebar-nav-active {
+  background: rgba(var(--color-primary-900, 107 53 35), 0.4);
+  color: rgb(var(--color-primary-300, 249 179 141));
+}
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(var(--color-neutral-200, 231 227 219));
+  flex-wrap: wrap;
+}
+.dark .sidebar-footer {
+  border-top-color: rgb(var(--color-neutral-700, 68 64 58));
+}
+
+.sidebar-lang {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  margin-right: auto;
+}
+.sidebar-lang-link {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  color: rgb(var(--color-neutral-500, 122 117 106));
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.sidebar-lang-link:hover {
+  background: rgb(var(--color-neutral-200, 231 227 219));
+  color: rgb(var(--color-neutral-800, 41 37 33));
+}
+.dark .sidebar-lang-link:hover {
+  background: rgb(var(--color-neutral-700, 68 64 58));
+  color: rgb(var(--color-neutral-200, 231 227 219));
+}
+.sidebar-lang-current {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  background: rgb(var(--color-primary-100, 254 235 221));
+  color: rgb(var(--color-primary-700, 160 75 45));
+}
+.dark .sidebar-lang-current {
+  background: rgba(var(--color-primary-900, 107 53 35), 0.4);
+  color: rgb(var(--color-primary-300, 249 179 141));
+}
+
+.sidebar-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.375rem;
+  border: none;
+  background: transparent;
+  color: rgb(var(--color-neutral-600, 87 83 76));
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.dark .sidebar-icon-btn {
+  color: rgb(var(--color-neutral-400, 168 162 149));
+}
+.sidebar-icon-btn:hover {
+  background: rgb(var(--color-neutral-200, 231 227 219));
+  color: rgb(var(--color-neutral-900, 28 25 23));
+}
+.dark .sidebar-icon-btn:hover {
+  background: rgb(var(--color-neutral-700, 68 64 58));
+  color: rgb(var(--color-neutral-100, 245 243 238));
+}
+
+/* Sidebar backdrop (mobile) */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.sidebar-backdrop.open {
+  opacity: 1;
+}
+
+/* Sidebar toggle button (mobile) */
+.sidebar-toggle-btn {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 250;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0.5rem;
+  background: rgb(var(--color-neutral-100, 245 243 238));
+  color: rgb(var(--color-neutral-700, 68 64 58));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.dark .sidebar-toggle-btn {
+  background: rgb(var(--color-neutral-800, 41 37 33));
+  color: rgb(var(--color-neutral-300, 209 204 193));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.sidebar-toggle-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Mobile: sidebar slides from left */
+@media (max-width: 1023px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .sidebar-backdrop {
+    display: block;
+    pointer-events: none;
+  }
+  .sidebar-backdrop.open {
+    pointer-events: auto;
+  }
+  .sidebar-toggle-btn {
+    display: flex;
+  }
+}
+
+/* Desktop: sidebar sticky */
+@media (min-width: 1024px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    flex-shrink: 0;
+    overflow-y: auto;
+  }
 }
